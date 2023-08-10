@@ -11,19 +11,24 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 10px;
-  width: 555px;
-  height: 555px;
-  outline: solid white 5px;
+  width: 444px;
+  height: 666px;
+  outline: solid #72195A 5px;
   border-radius: 25px;
 
 }
 
 #display {
+  display: flex;
   width: 555px;
   height: 166px;
-  background-color: darkslategrey;
+  font-size: 111px;
+  justify-content: right;
+  align-items: center;
+  padding: 22px;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  border-bottom: 5px #72195A solid;
 }
 
 .button {
@@ -32,10 +37,15 @@
   align-items: center;
   width: 99px;
   height: 99px;
-  outline: solid red 5px;
-  border-radius: 50%
+  border-radius: 50%;
+  background-color: #ffe74c;
+
 }
 
 .operator {
-  outline: solid blue 5px;
+  background-color: #20A4F3;
+}
+
+#equals, #clear {
+  background-color: #DB5461;
 }
