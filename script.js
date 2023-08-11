@@ -55,19 +55,31 @@ const display = document.querySelector("#display");
 let defaultVal = 0;
 display.textContent = defaultVal;
 
-let displayVal = [];
+let updatingVal = [];
+let displayVal
 
-function displayUpdate(displayVal){
-  display.textContent = displayVal.join('');
+function displayUpdate(updatingVal){
+  display.textContent = updatingVal.join('');
+  displayVal = Number(updatingVal.join(''));
+  console.log(displayVal);
 };
 
 buttons.forEach(button => {
   let value = button.value;
   button.addEventListener('click', () =>{
-    displayVal.push(value);
-    displayUpdate(displayVal);
+    updatingVal.push(value);
+    displayUpdate(updatingVal);
   });
 });
+
+function getCalculation(num1, operator, num2) {
+  return {
+    num1,
+    operator,
+    num2
+  }
+};
+
 
 
 //the total value displayed gets stored in ANOTHER variable which will be used in operations
@@ -78,4 +90,27 @@ buttons.forEach(button => {
 // the operator button clicked should be stored as the operator for the function
 // the display starts a new update with the next input number
 // the process repeats for as many operators and numbers the user wants
-//  
+
+//I think I need an Object, where the values get stored as key-value pairs in one obj based on the clicks
+
+// then the operation function will need to call those key-value pairs from variables that target them
+
+//in order to have multiple values (more than 2) I will need to maybe store the values in an array first, then call array indexes in the function to store them in the object? 
+
+//user clicks numbers, these numbers populate the display in order
+// user clicks an operator
+// the first set of numbers gets stored... somewhere
+// the operator gets stored... somewhere
+// the next set of numbers gets stored... somewhere
+// if the user clicks another operator, the first set calculates and the display updates with the new total
+// that total gets stored as the first number... somewhere
+// the operator gets stored.. somewhere
+// the process repeats
+
+// if the user hits equals, the function calculates and updates the display with the new total
+
+// that new total gets stored as the first value... somewhere
+
+// the process repeats.
+
+//so there's only ever two values and an operator being stored at one time

@@ -37,6 +37,7 @@ button {
   align-items: center;
   width: 99px;
   height: 99px;
+  border: none;
   border-radius: 50%;
   background-color: #ffe74c;
   color: black;
