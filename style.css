@@ -31,7 +31,7 @@
   border-bottom: 5px #72195A solid;
 }
 
-.button {
+button {
   display: flex;
   justify-content: center;
   align-items: center;

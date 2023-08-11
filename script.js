@@ -47,7 +47,7 @@ const equals = document.querySelector("#equals");
 
 // variables for buttons and display
 
-const buttons = document.querySelectorAll(".button");
+const buttons = document.querySelectorAll("button");
 const display = document.querySelector("#display");
 
 //display updating stuff
@@ -60,8 +60,9 @@ function displayUpdate(displayVal){
 };
 
 buttons.forEach(button => {
+  let value = button.value;
   button.addEventListener('click', () =>{
-    displayVal = button.getAttribute('id');
+    displayVal = value;
     displayUpdate(displayVal);
   });
 });
