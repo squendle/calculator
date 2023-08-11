@@ -2,7 +2,7 @@
   background-color: black;
   color: white;
   box-sizing: border-box;
-  font-family: sans-serif;
+  font-family: ubuntu;
   font-size: 33px;
 }
 
@@ -39,7 +39,7 @@
   height: 99px;
   border-radius: 50%;
   background-color: #ffe74c;
-
+  color: black;
 }
 
 .operator {

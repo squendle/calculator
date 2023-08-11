@@ -37,16 +37,7 @@ function operate(num1, operator, num2){
 
 // these are the variables for each button
 
-const zero = document.querySelector("#zero");
-const one = document.querySelector("#one");
-const two = document.querySelector("#two");
-const three = document.querySelector("#three");
-const four = document.querySelector("#four");
-const five = document.querySelector("#five");
-const six = document.querySelector("#six");
-const seven = document.querySelector("#seven");
-const eight = document.querySelector("#eight");
-const nine = document.querySelector("#nine");
+
 const plus = document.querySelector("#plus");
 const minus = document.querySelector("#minus");
 const times = document.querySelector("#times");
@@ -54,19 +45,30 @@ const divided = document.querySelector("divided");
 const clear = document.querySelector("#clear");
 const equals = document.querySelector("#equals");
 
+// variables for buttons and display
+
 const buttons = document.querySelectorAll(".button");
-const display = document.querySelector(".display");
+const display = document.querySelector("#display");
 
-let displayVal = "HI";
+//display updating stuff
 
-buttons.forEach(button => {
-  button.addEventListener('click', displayUpdate());
-});
-// I want for each click on a button to take the id and grab the correct variable, then update the displayVal with that variable....
-
-// when a button clicks, that number goes into the display
- 
+let displayVal = "0"
+display.textContent = displayVal;
 
 function displayUpdate(displayVal){
   display.textContent = displayVal;
 };
+
+buttons.forEach(button => {
+  button.addEventListener('click', () =>{
+    displayVal = button.getAttribute('id');
+    displayUpdate(displayVal);
+  });
+});
+
+//every button has an id
+//any button gets a click
+//that button's unique id should be added to a variable which updates the display in real time, concatenating with the next button click as well
+//the total value displayed gets stored in ANOTHER variable which will be used in operations
+//that final variable will need to be made into an integer before going into the operations functions
+
