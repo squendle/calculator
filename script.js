@@ -47,7 +47,10 @@ const equals = document.querySelector("#equals");
 
 // variables for buttons and display
 
-const buttons = document.querySelectorAll("button");
+const numButtons = document.querySelectorAll(".nums");
+const opButtons = document.querySelectorAll(".operator");
+const clButton = document.querySelector("#clear");
+const eqButton = document.querySelector("#equals");
 const display = document.querySelector("#display");
 
 //display updating stuff
@@ -56,46 +59,38 @@ let defaultVal = 0;
 display.textContent = defaultVal;
 
 let updatingVal = [];
-let displayVal
 
 function displayUpdate(updatingVal){
   display.textContent = updatingVal.join('');
-  displayVal = Number(updatingVal.join(''));
-  console.log(displayVal);
+  num1 = Number(updatingVal.join(''));
 };
 
-buttons.forEach(button => {
-  let value = button.value;
-  button.addEventListener('click', () =>{
+//this handles the button clicks
+//perhaps I need separate event listeners for the operators, equals, and clear...
+
+numButtons.forEach(numButton => {
+  let value = numButton.value;
+  numButton.addEventListener('click', () =>{
     updatingVal.push(value);
     displayUpdate(updatingVal);
   });
 });
 
-function getCalculation(num1, operator, num2) {
-  return {
-    num1,
-    operator,
-    num2
-  }
-};
+opButtons.forEach(opButton => {
+  opButton.addEventListener('click', () => {
+    console.log('click');
+  });
+});
+
+clButton.addEventListener('click', () => {
+  console.log('click');
+});
+
+eqButton.addEventListener('click', () => {
+  console.log('click');
+});
 
 
-
-//the total value displayed gets stored in ANOTHER variable which will be used in operations
-//that final variable will need to be made into an integer before going into the operations functions
-
-// if the button clicked has a class of operator, the display should stop updating
-// the first displayed value should be stored in a variable to be used in the operate function
-// the operator button clicked should be stored as the operator for the function
-// the display starts a new update with the next input number
-// the process repeats for as many operators and numbers the user wants
-
-//I think I need an Object, where the values get stored as key-value pairs in one obj based on the clicks
-
-// then the operation function will need to call those key-value pairs from variables that target them
-
-//in order to have multiple values (more than 2) I will need to maybe store the values in an array first, then call array indexes in the function to store them in the object? 
 
 //user clicks numbers, these numbers populate the display in order
 // user clicks an operator
