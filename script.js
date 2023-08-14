@@ -1,7 +1,7 @@
 //operator operand variables
-let num1
-let num2
-let operator
+let num1 = 0;
+let num2 = 0;
+let operator = "plus";
 
 //calculation functions
 
@@ -35,16 +35,6 @@ function operate(num1, operator, num2){
   }
 };
 
-// these are the variables for each button
-
-
-const plus = document.querySelector("#plus");
-const minus = document.querySelector("#minus");
-const times = document.querySelector("#times");
-const divided = document.querySelector("divided");
-const clear = document.querySelector("#clear");
-const equals = document.querySelector("#equals");
-
 // variables for buttons and display
 
 const numButtons = document.querySelectorAll(".nums");
@@ -55,57 +45,99 @@ const display = document.querySelector("#display");
 
 //display updating stuff
 
-let defaultVal = 0;
-display.textContent = defaultVal;
+display.textContent = num1;
 
 let updatingVal = [];
 
 function displayUpdate(updatingVal){
   display.textContent = updatingVal.join('');
-  num1 = Number(updatingVal.join(''));
+  displayVal = Number(updatingVal.join(''));
 };
 
 //this handles the button clicks
-//perhaps I need separate event listeners for the operators, equals, and clear...
 
 numButtons.forEach(numButton => {
   let value = numButton.value;
   numButton.addEventListener('click', () =>{
-    updatingVal.push(value);
-    displayUpdate(updatingVal);
+      if (updatingVal.length < 9) {
+      updatingVal.push(value);
+      displayUpdate(updatingVal);
+    };
   });
 });
 
 opButtons.forEach(opButton => {
   opButton.addEventListener('click', () => {
-    console.log('click');
+    operator = opButton.getAttribute("id");
+    if (num1 == 0) {
+      num1 = displayVal;
+      updatingVal = [];
+    } else if (num2 == 0) {
+      num2 = displayVal;
+      num1 = operate(num1, operator, num2);
+      display.textContent = num1;
+      num2 = 0;
+      updatingVal = [];
+    }
   });
 });
 
+//when clear is pressed
+
+function clearAll() {
+  updatingVal = [];
+  num1 = 0;
+  num2 = 0;
+  operator = '';
+  displayVal = 0;
+  display.textContent = num1;
+};
+
+function clearKeepTotal() {
+  updatingVal = [];
+  operator = '';
+  num2 = 0;
+}
+
 clButton.addEventListener('click', () => {
-  console.log('click');
+  clearAll();
 });
 
+//when equals is pressed
+
 eqButton.addEventListener('click', () => {
-  console.log('click');
+  num2 = displayVal;
+  num1 = operate(num1, operator, num2);
+  display.textContent = num1;
+  clearKeepTotal();
 });
+
+// CURRENT BUGS //
+// after equals, if another operator is pressed it automatically operates with the previous "displayVal"
+// if you press equals before an operation is complete, the display goes black
 
 
 
 //user clicks numbers, these numbers populate the display in order
 // user clicks an operator
-// the first set of numbers gets stored... somewhere
-// the operator gets stored... somewhere
-// the next set of numbers gets stored... somewhere
+// the first set of numbers gets stored in num1
+// the operator gets stored in operator
+// updatingVal gets zeroed out
+// the user clicks numbers
+//the display updates with the new numbers, populating updatingVal again
+// somehow those numbers need to be stored again..........
+// perhaps the operator has an if/else for if num1 is undefined
+
 // if the user clicks another operator, the first set calculates and the display updates with the new total
-// that total gets stored as the first number... somewhere
-// the operator gets stored.. somewhere
+
+// that total gets stored as num1
+// the operator gets stored as operator
+
 // the process repeats
 
 // if the user hits equals, the function calculates and updates the display with the new total
-
-// that new total gets stored as the first value... somewhere
+// that total gets stored as num1
 
 // the process repeats.
 
-//so there's only ever two values and an operator being stored at one time
+//so there's only ever two values and an operator being stored at one time 
