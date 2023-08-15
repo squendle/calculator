@@ -1,25 +1,27 @@
 //operator operand variables
 let num1 = 0;
 let num2 = 0;
-let operator = "plus";
+let calc = 0;
+let op1 = "plus";
+let op2 = "";
 
 //calculation functions
 
 function add(num1, num2) {
-  return num1 + num2;
+  return Math.round((num1 + num2) * 100) / 100;
 };
 
 function sub(num1, num2) {
-  return num1 - num2;
+  return Math.round((num1 - num2) * 100) / 100;
 }
 
 function mul(num1, num2) {
-  return num1 * num2;
+  return Math.round((num1 * num2) * 100) / 100;
 }
 
 function div(num1, num2) {
   if (num2 !== 0) {
-    return num1 / num2;
+    return Math.round((num1 / num2) * 100) / 100;
   } else {
     return "sorry, no alien math";
   }
@@ -27,14 +29,14 @@ function div(num1, num2) {
 
 // operation function
 
-function operate(num1, operator, num2){
-  if (operator === "plus") {
+function operate(num1, op, num2){
+  if (op === "plus") {
     return add(num1, num2);
-  } else if (operator === "times") {
+  } else if (op === "times") {
     return mul(num1, num2);
-  } else if (operator === "divided") {
+  } else if (op === "divided") {
     return div(num1, num2);
-  } else if (operator === "minus") {
+  } else if (op === "minus") {
     return sub(num1, num2);
   }
 };
@@ -71,16 +73,32 @@ numButtons.forEach(numButton => {
 
 opButtons.forEach(opButton => {
   opButton.addEventListener('click', () => {
-    operator = opButton.getAttribute("id");
     if (num1 == 0) {
-      num1 = num2;
-      updatingVal = [];
+      op1 = opButton.getAttribute("id");
+      calc = operate(num1, op1, num2);
+      num1 = calc;
+      calc = 0;
       num2 = 0;
-    } else if (num1 !== 0 && num2 !== 0) {
-      num1 = operate(num1, operator, num2);
+      updatingVal = [];
+      display.texContent = num1;
+    } else if (op1 !== "" && op2 === "") {
+      op2 = opButton.getAttribute("id");
+      calc = operate(num1, op1, num2);
+      num1 = calc;
+      calc = 0; 
+      num2 = 0;
       updatingVal = [];
       display.textContent = num1;
-    }
+    } else if (op1 !== "" && op2 !== "") {
+      op1 = op2;
+      op2 = opButton.getAttribute('id');
+      calc = operate(num1, op1, num2);
+      num1 = calc;
+      calc = 0;
+      num2 = 0;
+      updatingVal = [];
+      display.textContent = num1;
+    };
   });
 });
 
@@ -90,7 +108,9 @@ function clearAll() {
   updatingVal = [];
   num1 = 0;
   num2 = 0;
-  operator = 'plus';
+  calc = 0;
+  op1 = '';
+  op2 = '';
   display.textContent = num1;
 };
 
@@ -106,7 +126,13 @@ clButton.addEventListener('click', () => {
 //when equals is pressed
 
 eqButton.addEventListener('click', () => {
-    num1 = operate(num1, operator, num2);
-    display.textContent = num1;
-    clearKeepTotal();
+    if (op1 !== '' && op2 === ''){
+      num1 = operate(num1, op1, num2);
+      display.textContent = num1;
+      clearKeepTotal();
+    } else if (op1 !== '' && op2 !== '') {
+      num1 = operate(num1, op2, num2);
+      display.textContent = num1;
+      clearKeepTotal();
+    }
 });
