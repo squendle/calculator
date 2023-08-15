@@ -18,7 +18,11 @@ function mul(num1, num2) {
 }
 
 function div(num1, num2) {
-  return num1 / num2;
+  if (num2 !== 0) {
+    return num1 / num2;
+  } else {
+    return "sorry, no alien math";
+  }
 };
 
 // operation function
@@ -45,13 +49,12 @@ const display = document.querySelector("#display");
 
 //display updating stuff
 
+let updatingVal = [];
 display.textContent = num1;
 
-let updatingVal = [];
-
 function displayUpdate(updatingVal){
-  display.textContent = updatingVal.join('');
-  displayVal = Number(updatingVal.join(''));
+  num2 = Number(updatingVal.join(''));
+  display.textContent = num2;
 };
 
 //this handles the button clicks
@@ -70,14 +73,13 @@ opButtons.forEach(opButton => {
   opButton.addEventListener('click', () => {
     operator = opButton.getAttribute("id");
     if (num1 == 0) {
-      num1 = displayVal;
+      num1 = num2;
       updatingVal = [];
-    } else if (num2 == 0) {
-      num2 = displayVal;
-      num1 = operate(num1, operator, num2);
-      display.textContent = num1;
       num2 = 0;
+    } else if (num1 !== 0 && num2 !== 0) {
+      num1 = operate(num1, operator, num2);
       updatingVal = [];
+      display.textContent = num1;
     }
   });
 });
@@ -88,14 +90,12 @@ function clearAll() {
   updatingVal = [];
   num1 = 0;
   num2 = 0;
-  operator = '';
-  displayVal = 0;
+  operator = 'plus';
   display.textContent = num1;
 };
 
 function clearKeepTotal() {
   updatingVal = [];
-  operator = '';
   num2 = 0;
 }
 
@@ -106,38 +106,7 @@ clButton.addEventListener('click', () => {
 //when equals is pressed
 
 eqButton.addEventListener('click', () => {
-  num2 = displayVal;
-  num1 = operate(num1, operator, num2);
-  display.textContent = num1;
-  clearKeepTotal();
+    num1 = operate(num1, operator, num2);
+    display.textContent = num1;
+    clearKeepTotal();
 });
-
-// CURRENT BUGS //
-// after equals, if another operator is pressed it automatically operates with the previous "displayVal"
-// if you press equals before an operation is complete, the display goes black
-
-
-
-//user clicks numbers, these numbers populate the display in order
-// user clicks an operator
-// the first set of numbers gets stored in num1
-// the operator gets stored in operator
-// updatingVal gets zeroed out
-// the user clicks numbers
-//the display updates with the new numbers, populating updatingVal again
-// somehow those numbers need to be stored again..........
-// perhaps the operator has an if/else for if num1 is undefined
-
-// if the user clicks another operator, the first set calculates and the display updates with the new total
-
-// that total gets stored as num1
-// the operator gets stored as operator
-
-// the process repeats
-
-// if the user hits equals, the function calculates and updates the display with the new total
-// that total gets stored as num1
-
-// the process repeats.
-
-//so there's only ever two values and an operator being stored at one time 
